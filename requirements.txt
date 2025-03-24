@@ -10,3 +10,4 @@ lz4
 setproctitle
 boto3
 psutil
+supersuit

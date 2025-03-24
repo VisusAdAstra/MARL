@@ -74,7 +74,7 @@ Note that the RLlib initialization time can be rather high (up to 5 minutes) the
 
 - To train using [Stable-Baselines3](https://github.com/DLR-RM/stable-baselines3) and parameter shared PPO:
 ```bash
-python3 run_scripts/sb3_train.py --env harvest --num_agents 5
+python3 run_scripts/sb3_train.py --env harvest --num-agents 5
 ```
 
 - To train using [MARL-Baselines3](https://github.com/Rohan138/marl-baselines3) and independent PPO:
