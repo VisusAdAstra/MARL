@@ -1,0 +1,23 @@
+language: python
+
+cache: pip
+
+python:
+  - "3.8.10"
+
+os: linux
+
+dist: bionic
+
+install:
+  - pip install flake8 .
+  - pip install pytest
+  - pip install -r requirements.txt
+
+before_script:
+  - flake8 --version
+  - flake8 --show-source
+
+script:
+  - python setup.py install
+  - python -m pytest
