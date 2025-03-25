@@ -10,4 +10,9 @@ lz4
 setproctitle
 boto3
 psutil
-supersuit
+requests
+supersuit==3.3.2
+git+https://github.com/Rohan138/marl-baselines3
+protobuf==3.20.3
+shimmy>=2.0
+tensorboard
