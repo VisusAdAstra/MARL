@@ -67,6 +67,12 @@ def parse_args():
         default=0.05,
         help="Disadvantageous inequity aversion factor",
     )
+    parser.add_argument(
+        "--exp-name",
+        type=str,
+        default="",
+        help="Experiment name",
+    )
     args = parser.parse_args()
     return args
 
@@ -121,6 +127,7 @@ def main(args):
     inequity_averse_reward = args.inequity_averse_reward
     alpha = args.alpha
     beta = args.beta
+    exp_name = args.exp_name
 
     # Training
     num_cpus = 4  # number of cpus
@@ -183,6 +190,7 @@ def main(args):
         policy_kwargs=policy_kwargs,
         tensorboard_log=tensorboard_log,
         verbose=verbose,
+        exp_name=exp_name,
     )
     model.learn(total_timesteps=total_timesteps)
 

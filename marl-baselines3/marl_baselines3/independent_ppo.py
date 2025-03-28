@@ -46,6 +46,7 @@ class IndependentPPO(OnPolicyAlgorithm):
         policy_kwargs: Optional[Dict[str, Any]] = None,
         verbose: int = 0,
         device: Union[th.device, str] = "auto",
+        exp_name: str = "",
     ):
         self.env = env
         self.num_agents = num_agents
@@ -82,6 +83,7 @@ class IndependentPPO(OnPolicyAlgorithm):
             )
             for _ in range(self.num_agents)
         ]
+        self.exp_name = exp_name
 
     def learn(
         self,
@@ -99,7 +101,7 @@ class IndependentPPO(OnPolicyAlgorithm):
         self._logger = configure_logger(
             self.verbose,
             self.tensorboard_log,
-            tb_log_name,
+            tb_log_name + self.exp_name,
             reset_num_timesteps,
         )
         logdir = self.logger.dir
