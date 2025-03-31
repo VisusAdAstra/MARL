@@ -118,4 +118,4 @@ dmypy.json
 # project specific
 /videos
 /videos/*
-/results
+/results/vault

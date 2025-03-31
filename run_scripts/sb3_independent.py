@@ -38,7 +38,7 @@ def parse_args():
     )
     parser.add_argument(
         "--total-timesteps",
-        type=int,
+        type=float,
         default=5e8,
         help="Number of environment timesteps",
     )
