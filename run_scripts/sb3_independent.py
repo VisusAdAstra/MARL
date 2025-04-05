@@ -172,7 +172,7 @@ def main(args):
         net_arch=[features_dim],
     )
 
-    tensorboard_log = "./results/sb3/cleanup_ppo_independent"
+    tensorboard_log = "./results/sb3/ppo_independent"
 
     model = IndependentPPO(
         "CnnPolicy",

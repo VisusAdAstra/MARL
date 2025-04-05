@@ -8,6 +8,7 @@
 cd MARL
 pip install -r requirements.txt
 python3 run_scripts/sb3_independent.py --env harvest --num-agents 5
+pip install -e .
 ```
 
 ## for anaconda (pip versions before installing?)
