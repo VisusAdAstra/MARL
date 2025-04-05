@@ -41,7 +41,8 @@ def make_video_from_image_dir(vid_path, img_folder, video_name="trajectory", fps
     """
     images = [img for img in os.listdir(img_folder) if img.endswith(".png")]
     # images.sort()
-    images = sorted(images, key=extract_number)
+    #images = sorted(images, key=extract_number)
+    images = sorted(images, key=lambda name: (int(name.split('_')[0]), int(name.split('_')[1].split('.')[0])))
     print(images)
 
     rgb_imgs = []
@@ -64,6 +65,7 @@ def make_video_from_rgb_imgs(
     print("Rendering video...")
     if vid_path[-1] != "/":
         vid_path += "/"
+    os.makedirs(vid_path, exist_ok=True)
     video_path = vid_path + video_name + ".mp4"
 
     if resize is not None:

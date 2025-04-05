@@ -1,4 +1,14 @@
 import argparse
+import yaml
+
+
+def copy_args_to_yaml(args, filename):
+    try:
+        with open(filename, 'w') as yaml_file:
+            yaml.dump(args, yaml_file, default_flow_style=False)
+        print(f"Arguments successfully written to {filename}")
+    except Exception as e:
+        print(f"Error: {e}")
 
 
 def get_args():
@@ -24,8 +34,8 @@ def get_args():
     parser.add_argument("--K_epochs", type=int, default=16, help="The number of update for one training")
 
     # Evaluation arguments
-    parser.add_argument("--evaluate_model_name", type=str, default=512, help=" Maximum number of steps per evaluation episode")
-    parser.add_argument("--evaluate_inner_steps", type=int, default=512, help=" Maximum number of steps per evaluation episode")
+    parser.add_argument("--model_name", type=str, default=512, help="Evaluate Model name")
+    parser.add_argument("--evaluate_inner_steps", type=int, default=512, help="Maximum number of steps per evaluation episode")
 
     # File arguments
     parser.add_argument("--img_dir", type=str, default="img", help="Folder to save images")

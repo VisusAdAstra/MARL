@@ -9,7 +9,7 @@ from agents.ppo_agent import PPO_discrete
 from agents.replaybuffer import VectorizedReplayBuffer
 from env_utils.data_collector import CleanupDataCollector
 from envs.clean_up import CleanupEnv
-from envs.env_utility_funcs import save_img
+from envs.env_utility_funcs import save_img, make_video_from_image_dir
 from envs.env_wrapper import SubprocVectorWrapper
 
 
@@ -33,6 +33,7 @@ class CleanupPPORunner:
         self.exp_checkpoint_path = os.path.join("checkpoints", args.exp_name)
         os.makedirs(self.exp_checkpoint_path, exist_ok=True)
         self.img_path = os.path.join(self.exp_checkpoint_path, args.img_dir)
+        self.args.img_path = self.img_path
         os.makedirs(self.img_path, exist_ok=True)
         self.csv_path = os.path.join(self.exp_checkpoint_path, args.csv_dir)
         os.makedirs(self.csv_path, exist_ok=True)
@@ -53,7 +54,7 @@ class CleanupPPORunner:
         wandb.init(project='refactor_ssd_classic', name=self.args.exp_name, config=wandb_config)
 
     def train(self):
-        for episode_i in tqdm.tqdm(range(self.args.train_episode)):
+        for episode_i in tqdm.tqdm(range(self.args.train_episode+1)):
             self.run_episode(evaluate=False)
             # train
             for agent_id in self.env.agents:
@@ -78,12 +79,13 @@ class CleanupPPORunner:
             self.data_collector.save_to_csv(self.csv_path)
 
     def evaluate(self):
-        model_path = self.exp_checkpoint_path
-        for agent_id in self.env.agents:
-            self.policies[agent_id].load_model(os.path.join(model_path, f"{self.args.model_name}_{agent_id}.pth"))
-        for _ in range(self.args.train_episode):
-            self.run_episode(evaluate=True)
-            # process data
+        # model_path = self.exp_checkpoint_path
+        # for agent_id in self.env.agents:
+        #     self.policies[agent_id].load_model(os.path.join(model_path, f"{self.args.model_name}_{agent_id}.pth"))
+        # for _ in range(self.args.train_episode):
+        #     self.run_episode(evaluate=True)
+        #     # process data
+        make_video_from_image_dir(os.path.join(self.exp_checkpoint_path, "video"), self.img_path)
 
     def run_episode(self, evaluate=False):
         actions = {}
