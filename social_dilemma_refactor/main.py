@@ -2,12 +2,16 @@ import matplotlib.pyplot as plt
 import numpy as np
 from args import get_args, copy_args_to_yaml
 from runners.clean_up_ppo_runner import CleanupPPORunner
+from runners.harvest_ppo_runner import HarvestPPORunner
 from datetime import datetime
 import os
 
 
 args = get_args()
-runner = CleanupPPORunner(args)
+if "clean up" in args.exp_name:
+    runner = CleanupPPORunner(args)
+else:
+    runner = HarvestPPORunner(args)
 if args.model_name:
     runner.evaluate()
 else:
