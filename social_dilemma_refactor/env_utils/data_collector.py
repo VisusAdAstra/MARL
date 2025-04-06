@@ -70,7 +70,6 @@ class DataCollector:
         return info_dict
 
     def save_to_csv(self, path):
-        os.makedirs(path, exist_ok=True)
         for key in self.info_all_episode:
             print(self.info_all_episode[key])
             np.savetxt(os.path.join(path, f"{key}.csv"), self.info_all_episode[key], delimiter='\n', fmt='%d')

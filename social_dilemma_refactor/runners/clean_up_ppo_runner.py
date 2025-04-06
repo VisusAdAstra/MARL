@@ -79,12 +79,12 @@ class CleanupPPORunner:
             self.data_collector.save_to_csv(self.csv_path)
 
     def evaluate(self):
-        # model_path = self.exp_checkpoint_path
-        # for agent_id in self.env.agents:
-        #     self.policies[agent_id].load_model(os.path.join(model_path, f"{self.args.model_name}_{agent_id}.pth"))
-        # for _ in range(self.args.train_episode):
-        #     self.run_episode(evaluate=True)
-        #     # process data
+        model_path = self.exp_checkpoint_path
+        for agent_id in self.env.agents:
+            self.policies[agent_id].load_model(os.path.join(model_path, f"{self.args.model_name}_{agent_id}.pth"))
+        for _ in range(self.args.train_episode):
+            self.run_episode(evaluate=True)
+            # process data
         make_video_from_image_dir(os.path.join(self.exp_checkpoint_path, "video"), self.img_path)
 
     def run_episode(self, evaluate=False):

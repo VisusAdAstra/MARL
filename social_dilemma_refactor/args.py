@@ -34,7 +34,7 @@ def get_args():
     parser.add_argument("--K_epochs", type=int, default=16, help="The number of update for one training")
 
     # Evaluation arguments
-    parser.add_argument("--model_name", type=str, default=512, help="Evaluate Model name")
+    parser.add_argument("--model_name", type=str, default=None, help="Evaluate Model name")
     parser.add_argument("--evaluate_inner_steps", type=int, default=512, help="Maximum number of steps per evaluation episode")
 
     # File arguments
