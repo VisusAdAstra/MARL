@@ -47,8 +47,12 @@ def get_args():
     parser.add_argument("--env_parallel_num", default=4, type=int, help="The number of parallel envs (i.e. the size of 'batch' in  the input shape of NN (batch, channel, height, width))")
     parser.add_argument("--use_collective_reward", default=False, action="store_true", help="Whether to use collective reward")
     parser.add_argument("--use_inequity_averse_reward", default=False, action="store_true", help="Whether to use inequity averaging reward")
+    parser.add_argument("--num_inequity", type=int, default=0, help="Number of inequity agents")
+    parser.add_argument("--alpha", type=float, default=5.0, help="inequity_averse_reward alpha")
+    parser.add_argument("--beta", type=float, default=0.05, help="inequity_averse_reward beta")
 
     # Agent arguments
+    parser.add_argument("--num_agents", type=int, default=5, help="Number of agents")
     parser.add_argument("--use_rnn", default=True, action="store_true", help="Whether to use RNN")
     parser.add_argument("--network_layer", type=int, default=2, help="The layer number of policy network and value network")
 

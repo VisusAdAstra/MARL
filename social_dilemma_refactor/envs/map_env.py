@@ -66,6 +66,7 @@ class MapEnv(ParallelEnv):
             extra_actions,
             view_len,
             number_of_agents=1,
+            number_of_inequity=0,
             color_map=None,
             return_agent_actions=False,
             use_collective_reward=False,
@@ -90,6 +91,7 @@ class MapEnv(ParallelEnv):
         """
         super().__init__()
         self.num_of_agents = number_of_agents
+        self.number_of_inequity = number_of_inequity
         self.base_map = self.ascii_to_numpy(ascii_map)
         self.view_len = view_len
         self.map_padding = view_len
@@ -313,7 +315,10 @@ class MapEnv(ParallelEnv):
         if self.inequity_averse_reward:
             assert self.num_of_agents > 1, "Cannot use inequity aversion with only one agents!"
             temp_rewards = rewards.copy()
-            for agent_id in rewards.keys():
+            for index, agent_id in enumerate(rewards.keys()):
+                # defector
+                if index+1 > self.number_of_inequity:
+                    continue
                 diff = np.array([r - rewards[agent_id] for r in rewards.values()])
                 dis_inequity = self.alpha * sum(diff[diff > 0])
                 adv_inequity = self.beta * sum(diff[diff < 0])

@@ -8,10 +8,10 @@ import os
 
 
 args = get_args()
-if "clean up" in args.exp_name:
-    runner = CleanupPPORunner(args)
-else:
+if "harvest" in args.exp_name:
     runner = HarvestPPORunner(args)
+else:
+    runner = CleanupPPORunner(args)
 if args.model_name:
     runner.evaluate()
 else:

@@ -18,7 +18,7 @@ class HarvestPPORunner:
         self.args = args
         setproctitle.setproctitle(f"{self.args.exp_name}")
 
-        env = [HarvestEnv(use_collective_reward=args.use_collective_reward,
+        env = [HarvestEnv(number_of_agents=args.num_agents, number_of_inequity=args.num_inequity, use_collective_reward=args.use_collective_reward,
                           inequity_averse_reward=args.use_inequity_averse_reward) for _ in range(args.env_parallel_num)]
         self.env = SubprocVectorWrapper(env)
 
