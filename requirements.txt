@@ -1,4 +1,4 @@
-gym>=0.21.0
+gym==0.21.0
 ray[rllib]==0.8.5
 pettingzoo>=1.13.1
 opencv-python>=3.4
@@ -15,4 +15,8 @@ supersuit==3.3.2
 protobuf==3.20.3
 shimmy>=2.0
 tensorboard
-ale-py==0.8.1
+ale-py==0.7.1
+setuptools
+wheel
+tqdm
+wandb
