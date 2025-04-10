@@ -1,5 +1,5 @@
 import os
-
+import datetime
 import setproctitle
 import tqdm
 import wandb
@@ -54,6 +54,7 @@ class CleanupPPORunner:
         wandb.init(project='refactor_ssd_classic', name=self.args.exp_name, config=wandb_config)
 
     def train(self):
+        print(datetime.datetime.now())
         for episode_i in tqdm.tqdm(range(self.args.train_episode+1)):
             self.run_episode(evaluate=False)
             # train
