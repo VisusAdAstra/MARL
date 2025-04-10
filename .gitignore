@@ -119,3 +119,9 @@ dmypy.json
 /videos
 /videos/*
 /results/vault
+*episode_128*
+*episode_256*
+*episode_384*
+*episode_640*
+*episode_768*
+*episode_896*
