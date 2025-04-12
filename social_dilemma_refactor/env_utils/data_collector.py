@@ -71,7 +71,7 @@ class DataCollector:
 
     def save_to_csv(self, path):
         for key in self.info_all_episode:
-            print(self.info_all_episode[key])
+            #print(self.info_all_episode[key])
             np.savetxt(os.path.join(path, f"{key}.csv"), self.info_all_episode[key], delimiter='\n', fmt='%d')
 
     def clear(self):

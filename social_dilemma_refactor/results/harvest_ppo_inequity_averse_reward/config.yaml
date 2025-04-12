@@ -39,6 +39,7 @@ mini_batch_size: 1
 model_name: null
 network_layer: 2
 num_agents: 5
+num_inequity: 0
 save_csv: true
 save_freq: 128
 set_adam_eps: false
