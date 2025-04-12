@@ -1,5 +1,5 @@
 import argparse
-
+import datetime
 import gym
 import supersuit as ss
 import torch
@@ -73,6 +73,12 @@ def parse_args():
         default="",
         help="Experiment name",
     )
+    parser.add_argument(
+        "--train",
+        type=bool,
+        default=False,
+        help="Train or evaluate",
+    )
     args = parser.parse_args()
     return args
 
@@ -131,7 +137,7 @@ def main(args):
 
     # Training
     num_cpus = 4  # number of cpus
-    num_envs = 12  # number of parallel multi-agent environments
+    num_envs = 16  # number of parallel multi-agent environments; default 12
     num_frames = 6  # number of frames to stack together; use >4 to avoid automatic VecTransposeImage
     features_dim = (
         128  # output layer of cnn extractor AND shared layer for policy and value functions
@@ -192,14 +198,22 @@ def main(args):
         verbose=verbose,
         exp_name=exp_name,
     )
-    model.learn(total_timesteps=total_timesteps)
+    if(args.train):
+        print(f"start training {datetime.datetime.now()}")
+        model.learn(total_timesteps=total_timesteps)
 
-    logdir = model.logger.dir
-    model.save(logdir)
-    del model
-    model = IndependentPPO.load(  # noqa: F841
-        logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
-    )
+        logdir = model.logger.dir
+        model.save(logdir)
+        del model
+        model = IndependentPPO.load(  # noqa: F841
+            logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
+        )
+    else:
+        logdir = model.logger.dir
+        print(f"load model {logdir}")
+        model = IndependentPPO.load(  # noqa: F841
+            logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
+        )
 
 
 if __name__ == "__main__":

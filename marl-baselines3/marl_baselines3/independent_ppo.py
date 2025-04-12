@@ -90,7 +90,7 @@ class IndependentPPO(OnPolicyAlgorithm):
         total_timesteps: int,
         callbacks: Optional[List[MaybeCallback]] = None,
         log_interval: int = 1,
-        tb_log_name: str = "IndependentPPO",
+        tb_log_name: str = "", #IndependentPPO
         reset_num_timesteps: bool = True,
     ):
 

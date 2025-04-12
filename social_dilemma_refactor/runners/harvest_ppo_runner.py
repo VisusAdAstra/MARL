@@ -69,6 +69,7 @@ class HarvestPPORunner:
                     model_name = f"episode_{episode_i}_{agent_id}.pth"
                     path = os.path.join(self.exp_checkpoint_path, model_name)
                     self.policies[agent_id].save_model(path)
+                self.data_collector.save_to_csv(self.csv_path)
             # update data
             self.data_collector.update_episode_info()
             # process data

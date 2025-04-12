@@ -29,9 +29,9 @@ def get_args():
     parser.add_argument("--mini_batch_size", type=int, default=1, help="The number of episodes used for one training epoch")
     parser.add_argument("--lr", type=float, default=1e-4, help="Learning rate of NNs")
     parser.add_argument("--gamma", type=float, default=0.99, help="Discount factor")
-    parser.add_argument("--lamda", type=float, default=0.95, help="GAE lambda")
+    parser.add_argument("--lamda", type=float, default=1.0, help="GAE lambda")
     parser.add_argument("--epsilon", type=float, default=0.2, help="PPO clip parameter")
-    parser.add_argument("--K_epochs", type=int, default=16, help="The number of update for one training")
+    parser.add_argument("--K_epochs", type=int, default=30, help="The number of update for one training")
 
     # Evaluation arguments
     parser.add_argument("--model_name", type=str, default=None, help="Evaluate Model name")
@@ -60,11 +60,12 @@ def get_args():
     parser.add_argument("--use_adv_norm", type=bool, default=False, help="Trick: advantage normalization")
     parser.add_argument("--use_state_norm", type=bool, default=False, help="Trick: state normalization")
     parser.add_argument("--use_reward_scaling", type=bool, default=False, help="Trick:reward scaling")
-    parser.add_argument("--entropy_coef", type=float, default=0.01, help="Trick: policy entropy")
+    parser.add_argument("--entropy_coef", type=float, default=0.001, help="Trick: policy entropy")
     parser.add_argument("--use_lr_decay", type=bool, default=False, help="Trick:learning rate Decay")
     parser.add_argument("--use_grad_clip", type=bool, default=False, help="Trick: Gradient clip")
     parser.add_argument("--use_orthogonal_init", type=bool, default=True, help="Trick: orthogonal initialization")
     parser.add_argument("--set_adam_eps", type=float, default=False, help="Trick: set Adam epsilon=1e-5")
     parser.add_argument("--use_tanh", type=float, default=False, help="Trick: tanh activation function")
+    
     args = parser.parse_args()
     return args

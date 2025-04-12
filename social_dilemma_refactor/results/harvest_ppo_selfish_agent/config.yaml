@@ -1,0 +1,60 @@
+!!python/object:argparse.Namespace
+K_epochs: 16
+action_dim: !!python/object/apply:numpy.core.multiarray.scalar
+- !!python/object/apply:numpy.dtype
+  args:
+  - i8
+  - false
+  - true
+  state: !!python/tuple
+  - 3
+  - <
+  - null
+  - null
+  - null
+  - -1
+  - -1
+  - 0
+- !!binary |
+  CAAAAAAAAAA=
+alpha: 5.0
+batch_size: 2
+beta: 0.05
+csv_dir: csv
+device: cuda:0
+entropy_coef: 0.01
+env_parallel_num: 16
+epsilon: 0.2
+evaluate_inner_steps: 512
+exp_name: harvest_ppo_selfish_agent
+gamma: 0.99
+img_dir: img
+img_path: checkpoints/harvest_ppo_selfish_agent/img
+input_c: 3
+input_h: 15
+input_w: 15
+lamda: 0.95
+lr: 0.0001
+mini_batch_size: 1
+model_name: null
+network_layer: 2
+num_agents: 5
+num_inequity: 0
+save_csv: true
+save_freq: 128
+set_adam_eps: false
+train_episode: 512
+train_inner_steps: 512
+use_adv_norm: false
+use_collective_reward: false
+use_grad_clip: false
+use_inequity_averse_reward: false
+use_lr_decay: false
+use_orthogonal_init: true
+use_reward_scaling: false
+use_rgb_norm: true
+use_rnn: true
+use_state_norm: false
+use_tanh: false
+use_wandb: false
+wandb_api_key: null
