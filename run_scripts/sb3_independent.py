@@ -95,6 +95,18 @@ def parse_args():
         default=False,
         help="Train or evaluate",
     )
+    parser.add_argument(
+        "--device",
+        type=str,
+        default="cuda:0",
+        help="Gpu device",
+    )
+    parser.add_argument(
+        "--num-envs",
+        type=int,
+        default=16,
+        help="The number of inequity",
+    )
     args = parser.parse_args()
     return args
 
@@ -151,10 +163,11 @@ def main(args):
     alpha = args.alpha
     beta = args.beta
     exp_name = args.exp_name
+    device = args.device
 
     # Training
     num_cpus = 4  # number of cpus
-    num_envs = 16  # number of parallel multi-agent environments; default 12
+    num_envs = args.num_envs  # number of parallel multi-agent environments; # 12
     num_frames = 6  # number of frames to stack together; use >4 to avoid automatic VecTransposeImage
     features_dim = (
         128  # output layer of cnn extractor AND shared layer for policy and value functions
@@ -215,6 +228,7 @@ def main(args):
         tensorboard_log=tensorboard_log,
         verbose=verbose,
         exp_name=exp_name,
+        device=device,
     )
     if(args.train):
         print(f"start training {datetime.datetime.now()}")
