@@ -185,6 +185,8 @@ class IndependentPPO(OnPolicyAlgorithm):
                     policy.logger.dump(step=policy.num_timesteps)
 
                 policy.train()
+            if num_timesteps+1 % int(total_timesteps/10) == 0:
+                self.save(logdir)
 
         for callback in callbacks:
             callback.on_training_end()
