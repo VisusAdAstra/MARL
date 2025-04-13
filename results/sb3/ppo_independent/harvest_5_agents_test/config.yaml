@@ -1,0 +1,12 @@
+!!python/object:argparse.Namespace
+alpha: 5.0
+beta: 0.05
+env_name: harvest
+exp_name: harvest_5_agents_test
+inequity_averse_reward: true
+num_agents: 5
+num_inequity: 3
+rollout_len: 1000
+total_timesteps: 100000000.0
+train: true
+use_collective_reward: false

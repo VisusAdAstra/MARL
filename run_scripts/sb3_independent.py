@@ -9,11 +9,21 @@ from marl_baselines3 import IndependentPPO
 from stable_baselines3.common.torch_layers import BaseFeaturesExtractor
 from stable_baselines3.common.vec_env.vec_monitor import VecMonitor
 from torch import nn
+import os
+import yaml
 
 from social_dilemmas.envs.pettingzoo_env import parallel_env
 
 device = torch.device("cuda") if torch.cuda.is_available() else torch.device("cpu")
 
+
+def copy_args_to_yaml(args, filename):
+    try:
+        with open(filename, 'w') as yaml_file:
+            yaml.dump(args, yaml_file, default_flow_style=False)
+        print(f"Arguments successfully written to {filename}")
+    except Exception as e:
+        print(f"Error: {e}")
 
 def parse_args():
     parser = argparse.ArgumentParser("MARL-Baselines3 PPO with Independent Learning")
@@ -29,6 +39,12 @@ def parse_args():
         type=int,
         default=5,
         help="The number of agents",
+    )
+    parser.add_argument(
+        "--num-inequity",
+        type=int,
+        default=5,
+        help="The number of inequity",
     )
     parser.add_argument(
         "--rollout-len",
@@ -127,6 +143,7 @@ def main(args):
     # Config
     env_name = args.env_name
     num_agents = args.num_agents
+    num_inequity = args.num_inequity
     rollout_len = args.rollout_len
     total_timesteps = args.total_timesteps
     use_collective_reward = args.use_collective_reward
@@ -157,6 +174,7 @@ def main(args):
         max_cycles=rollout_len,
         env=env_name,
         num_agents=num_agents,
+        num_inequity=num_inequity,
         use_collective_reward=use_collective_reward,
         inequity_averse_reward=inequity_averse_reward,
         alpha=alpha,
@@ -200,17 +218,20 @@ def main(args):
     )
     if(args.train):
         print(f"start training {datetime.datetime.now()}")
+        os.makedirs(tensorboard_log + "/" + exp_name, exist_ok=True)
+        copy_args_to_yaml(args, tensorboard_log + "/" + exp_name + "/config.yaml")
         model.learn(total_timesteps=total_timesteps)
-
         logdir = model.logger.dir
+
         model.save(logdir)
+        copy_args_to_yaml(args, f"{logdir}/config.yaml")
         del model
         model = IndependentPPO.load(  # noqa: F841
             logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
         )
     else:
-        logdir = model.logger.dir
         print(f"load model {logdir}")
+        logdir = tensorboard_log + "/" + exp_name + "_1"
         model = IndependentPPO.load(  # noqa: F841
             logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
         )

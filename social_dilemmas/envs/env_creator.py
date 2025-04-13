@@ -6,6 +6,7 @@ from social_dilemmas.envs.switch import SwitchEnv
 def get_env_creator(
     env,
     num_agents,
+    num_inequity,
     use_collective_reward=False,
     inequity_averse_reward=False,
     alpha=0.0,
@@ -17,6 +18,7 @@ def get_env_creator(
         def env_creator(_):
             return HarvestEnv(
                 num_agents=num_agents,
+                num_inequity=num_inequity,
                 return_agent_actions=True,
                 use_collective_reward=use_collective_reward,
                 inequity_averse_reward=inequity_averse_reward,
@@ -29,6 +31,7 @@ def get_env_creator(
         def env_creator(_):
             return CleanupEnv(
                 num_agents=num_agents,
+                num_inequity=num_inequity,
                 return_agent_actions=True,
                 use_collective_reward=use_collective_reward,
                 inequity_averse_reward=inequity_averse_reward,

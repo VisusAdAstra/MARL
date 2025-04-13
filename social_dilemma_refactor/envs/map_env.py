@@ -318,6 +318,7 @@ class MapEnv(ParallelEnv):
             for index, agent_id in enumerate(rewards.keys()):
                 # defector
                 if index+1 > self.number_of_inequity:
+                    print(f"defector index: {index+1}")
                     continue
                 diff = np.array([r - rewards[agent_id] for r in rewards.values()])
                 dis_inequity = self.alpha * sum(diff[diff > 0])

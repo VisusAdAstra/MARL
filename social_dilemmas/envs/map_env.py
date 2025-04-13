@@ -63,6 +63,7 @@ class MapEnv(MultiAgentEnv):
         extra_actions,
         view_len,
         num_agents=1,
+        num_inequity=0,
         color_map=None,
         return_agent_actions=False,
         use_collective_reward=False,
@@ -87,6 +88,7 @@ class MapEnv(MultiAgentEnv):
             If true, the observation space will include the actions of other agents
         """
         self.num_agents = num_agents
+        self.num_inequity = num_inequity
         self.base_map = self.ascii_to_numpy(ascii_map)
         self.view_len = view_len
         self.map_padding = view_len
@@ -296,7 +298,11 @@ class MapEnv(MultiAgentEnv):
         if self.inequity_averse_reward:
             assert self.num_agents > 1, "Cannot use inequity aversion with only one agent!"
             temp_rewards = rewards.copy()
-            for agent in rewards.keys():
+            for index, agent in enumerate(rewards.keys()):
+                # defector
+                if index+1 > self.num_inequity:
+                    #print(f"defector index: {index+1}")
+                    continue
                 diff = np.array([r - rewards[agent] for r in rewards.values()])
                 dis_inequity = self.alpha * sum(diff[diff > 0])
                 adv_inequity = self.beta * sum(diff[diff < 0])

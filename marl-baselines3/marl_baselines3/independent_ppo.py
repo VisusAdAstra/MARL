@@ -272,6 +272,7 @@ class IndependentPPO(OnPolicyAlgorithm):
                         for envid in range(self.num_envs)
                     ]
                 )
+            #print(all_infos)
 
             for policy in self.policies:
                 policy.num_timesteps += self.num_envs
