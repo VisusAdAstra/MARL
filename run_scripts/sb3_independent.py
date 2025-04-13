@@ -239,10 +239,10 @@ def main(args):
 
         model.save(logdir)
         copy_args_to_yaml(args, f"{logdir}/config.yaml")
-        del model
-        model = IndependentPPO.load(  # noqa: F841
-            logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
-        )
+        # del model
+        # model = IndependentPPO.load(  # noqa: F841
+        #     logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
+        # )
     else:
         print(f"load model {logdir}")
         logdir = tensorboard_log + "/" + exp_name + "_1"

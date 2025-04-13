@@ -9,6 +9,6 @@ num_agents: 5
 num_envs: 32
 num_inequity: 2
 rollout_len: 1000
-total_timesteps: 10000.0
+total_timesteps: 100000.0
 train: true
 use_collective_reward: false
