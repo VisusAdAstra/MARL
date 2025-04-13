@@ -142,6 +142,7 @@ class IndependentPPO(OnPolicyAlgorithm):
         for policy in self.policies:
             policy._last_episode_starts = np.ones((self.num_envs,), dtype=bool)
 
+        last_checkpoint = 0
         while num_timesteps < total_timesteps:
             last_obs = self.collect_rollouts(last_obs, callbacks)
             num_timesteps += self.num_envs * self.n_steps
@@ -185,8 +186,9 @@ class IndependentPPO(OnPolicyAlgorithm):
                     policy.logger.dump(step=policy.num_timesteps)
 
                 policy.train()
-            if num_timesteps+1 % int(total_timesteps/10) == 0:
+            if num_timesteps >= last_checkpoint + total_timesteps // 10:
                 self.save(logdir)
+                last_checkpoint = num_timesteps
 
         for callback in callbacks:
             callback.on_training_end()
