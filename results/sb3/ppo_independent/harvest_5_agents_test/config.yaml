@@ -7,7 +7,7 @@ exp_name: harvest_5_agents_test
 inequity_averse_reward: true
 num_agents: 5
 num_envs: 32
-num_inequity: 2
+num_inequity: 5
 rollout_len: 1000
 total_timesteps: 100000.0
 train: true

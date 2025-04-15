@@ -300,8 +300,8 @@ class MapEnv(MultiAgentEnv):
             temp_rewards = rewards.copy()
             for index, agent in enumerate(rewards.keys()):
                 # defector
-                if index+1 > self.num_inequity:
-                    #print(f"defector index: {index+1}")
+                if int(agent.split("-")[-1])+1 > self.num_inequity:
+                    #print(f"defector index: {index} {agent}")
                     continue
                 diff = np.array([r - rewards[agent] for r in rewards.values()])
                 dis_inequity = self.alpha * sum(diff[diff > 0])

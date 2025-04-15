@@ -11,6 +11,7 @@ from stable_baselines3.common.vec_env.vec_monitor import VecMonitor
 from torch import nn
 import os
 import yaml
+import shutil
 
 from social_dilemmas.envs.pettingzoo_env import parallel_env
 
@@ -105,7 +106,7 @@ def parse_args():
         "--num-envs",
         type=int,
         default=16,
-        help="The number of inequity",
+        help="The number of parallel envs",
     )
     args = parser.parse_args()
     return args
@@ -238,6 +239,7 @@ def main(args):
         logdir = model.logger.dir
 
         model.save(logdir)
+        shutil.copytree(logdir, logdir.rsplit("_", 1)[0], dirs_exist_ok=True)
         copy_args_to_yaml(args, f"{logdir}/config.yaml")
         del model
         model = IndependentPPO.load(  # noqa: F841
