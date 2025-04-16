@@ -1,0 +1,14 @@
+!!python/object:argparse.Namespace
+alpha: 5
+beta: 0.05
+device: cuda:2
+env_name: cleanup
+exp_name: cleanup_ppo_selfish_agent_sb3
+inequity_averse_reward: false
+num_agents: 5
+num_envs: 16
+num_inequity: 5
+rollout_len: 1000
+total_timesteps: 200000000.0
+train: true
+use_collective_reward: false
