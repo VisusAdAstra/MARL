@@ -28548,3 +28548,185 @@ Early stopping at step 1 due to reaching max kl: 0.02
 |    policy_gradient_loss | -0.00161    |
 |    value_loss           | 16.7        |
 -----------------------------------------
+------------------------------------------
+| policy_id               | 0            |
+| rollout/                |              |
+|    ep_len_mean          | 1e+03        |
+|    ep_rew_mean          | 97.1         |
+| time/                   |              |
+|    fps                  | 307          |
+|    iterations           | 8256000      |
+|    time_elapsed         | 26851        |
+|    total_timesteps      | 8256000      |
+| train/                  |              |
+|    approx_kl            | 0.0150414035 |
+|    clip_fraction        | 0.131        |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -0.793       |
+|    explained_variance   | 0.279        |
+|    learning_rate        | 0.0001       |
+|    loss                 | 9.3          |
+|    n_updates            | 5371         |
+|    policy_gradient_loss | -0.000496    |
+|    value_loss           | 20.5         |
+------------------------------------------
+Early stopping at step 1 due to reaching max kl: 0.02
+-----------------------------------------
+| policy_id               | 1           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | 149         |
+| time/                   |             |
+|    fps                  | 307         |
+|    iterations           | 8256000     |
+|    time_elapsed         | 26852       |
+|    total_timesteps      | 8256000     |
+| train/                  |             |
+|    approx_kl            | 0.015090269 |
+|    clip_fraction        | 0.137       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.772      |
+|    explained_variance   | 0.248       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 11.5        |
+|    n_updates            | 6022        |
+|    policy_gradient_loss | 0.00437     |
+|    value_loss           | 23.3        |
+-----------------------------------------
+Early stopping at step 6 due to reaching max kl: 0.02
+-----------------------------------------
+| policy_id               | 2           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | 144         |
+| time/                   |             |
+|    fps                  | 307         |
+|    iterations           | 8256000     |
+|    time_elapsed         | 26854       |
+|    total_timesteps      | 8256000     |
+| train/                  |             |
+|    approx_kl            | 0.013643521 |
+|    clip_fraction        | 0.149       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.922      |
+|    explained_variance   | 0.271       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 7.76        |
+|    n_updates            | 7238        |
+|    policy_gradient_loss | -6.76e-05   |
+|    value_loss           | 18.8        |
+-----------------------------------------
+Early stopping at step 7 due to reaching max kl: 0.02
+-----------------------------------------
+| policy_id               | 3           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | 133         |
+| time/                   |             |
+|    fps                  | 307         |
+|    iterations           | 8256000     |
+|    time_elapsed         | 26857       |
+|    total_timesteps      | 8256000     |
+| train/                  |             |
+|    approx_kl            | 0.012304038 |
+|    clip_fraction        | 0.127       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.872      |
+|    explained_variance   | 0.29        |
+|    learning_rate        | 0.0001      |
+|    loss                 | 9.13        |
+|    n_updates            | 6985        |
+|    policy_gradient_loss | -0.00263    |
+|    value_loss           | 21.9        |
+-----------------------------------------
+----------------------------------------
+| policy_id               | 4          |
+| rollout/                |            |
+|    ep_len_mean          | 1e+03      |
+|    ep_rew_mean          | 112        |
+| time/                   |            |
+|    fps                  | 307        |
+|    iterations           | 8256000    |
+|    time_elapsed         | 26867      |
+|    total_timesteps      | 8256000    |
+| train/                  |            |
+|    approx_kl            | 0.01419697 |
+|    clip_fraction        | 0.137      |
+|    clip_range           | 0.2        |
+|    entropy_loss         | -0.683     |
+|    explained_variance   | 0.248      |
+|    learning_rate        | 0.0001     |
+|    loss                 | 5.68       |
+|    n_updates            | 6877       |
+|    policy_gradient_loss | -0.000511  |
+|    value_loss           | 14.7       |
+----------------------------------------
+Early stopping at step 23 due to reaching max kl: 0.02
+-----------------------------------------
+| policy_id               | 0           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | 97.4        |
+| time/                   |             |
+|    fps                  | 307         |
+|    iterations           | 8288000     |
+|    time_elapsed         | 26932       |
+|    total_timesteps      | 8288000     |
+| train/                  |             |
+|    approx_kl            | 0.017593738 |
+|    clip_fraction        | 0.139       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.768      |
+|    explained_variance   | 0.152       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 12.3        |
+|    n_updates            | 5373        |
+|    policy_gradient_loss | 0.00478     |
+|    value_loss           | 25.7        |
+-----------------------------------------
+Early stopping at step 1 due to reaching max kl: 0.02
+-----------------------------------------
+| policy_id               | 1           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | 151         |
+| time/                   |             |
+|    fps                  | 307         |
+|    iterations           | 8288000     |
+|    time_elapsed         | 26933       |
+|    total_timesteps      | 8288000     |
+| train/                  |             |
+|    approx_kl            | 0.015247467 |
+|    clip_fraction        | 0.142       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.778      |
+|    explained_variance   | 0.299       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 11.4        |
+|    n_updates            | 6029        |
+|    policy_gradient_loss | 0.00259     |
+|    value_loss           | 24          |
+-----------------------------------------
+Early stopping at step 11 due to reaching max kl: 0.02
+-----------------------------------------
+| policy_id               | 2           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | 145         |
+| time/                   |             |
+|    fps                  | 307         |
+|    iterations           | 8288000     |
+|    time_elapsed         | 26937       |
+|    total_timesteps      | 8288000     |
+| train/                  |             |
+|    approx_kl            | 0.015197914 |
+|    clip_fraction        | 0.152       |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.933      |
+|    explained_variance   | 0.251       |
+|    learning_rate        | 0.0001      |
+|    loss                 | 10.8        |
+|    n_updates            | 7246        |
+|    policy_gradient_loss | 0.00581     |
+|    value_loss           | 22.9        |
+-----------------------------------------

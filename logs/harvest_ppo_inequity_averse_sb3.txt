@@ -22434,3 +22434,115 @@ Early stopping at step 9 due to reaching max kl: 0.02
 |    policy_gradient_loss | 0.00115    |
 |    value_loss           | 209        |
 ----------------------------------------
+------------------------------------------
+| policy_id               | 0            |
+| rollout/                |              |
+|    ep_len_mean          | 1e+03        |
+|    ep_rew_mean          | -437         |
+| time/                   |              |
+|    fps                  | 276          |
+|    iterations           | 6528000      |
+|    time_elapsed         | 23592        |
+|    total_timesteps      | 6528000      |
+| train/                  |              |
+|    approx_kl            | 0.0081566665 |
+|    clip_fraction        | 0.0851       |
+|    clip_range           | 0.2          |
+|    entropy_loss         | -1.04        |
+|    explained_variance   | 0.0389       |
+|    learning_rate        | 0.0001       |
+|    loss                 | 98.4         |
+|    n_updates            | 5880         |
+|    policy_gradient_loss | 0.00196      |
+|    value_loss           | 240          |
+------------------------------------------
+-----------------------------------------
+| policy_id               | 1           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | -462        |
+| time/                   |             |
+|    fps                  | 276         |
+|    iterations           | 6528000     |
+|    time_elapsed         | 23602       |
+|    total_timesteps      | 6528000     |
+| train/                  |             |
+|    approx_kl            | 0.010689236 |
+|    clip_fraction        | 0.0789      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.691      |
+|    explained_variance   | -0.0116     |
+|    learning_rate        | 0.0001      |
+|    loss                 | 68.3        |
+|    n_updates            | 5535        |
+|    policy_gradient_loss | 0.00192     |
+|    value_loss           | 172         |
+-----------------------------------------
+Early stopping at step 8 due to reaching max kl: 0.02
+-----------------------------------------
+| policy_id               | 2           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | -402        |
+| time/                   |             |
+|    fps                  | 276         |
+|    iterations           | 6528000     |
+|    time_elapsed         | 23606       |
+|    total_timesteps      | 6528000     |
+| train/                  |             |
+|    approx_kl            | 0.015073841 |
+|    clip_fraction        | 0.0969      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.841      |
+|    explained_variance   | -0.0524     |
+|    learning_rate        | 0.0001      |
+|    loss                 | 104         |
+|    n_updates            | 5144        |
+|    policy_gradient_loss | 0.0078      |
+|    value_loss           | 218         |
+-----------------------------------------
+Early stopping at step 24 due to reaching max kl: 0.02
+-----------------------------------------
+| policy_id               | 3           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | -392        |
+| time/                   |             |
+|    fps                  | 276         |
+|    iterations           | 6528000     |
+|    time_elapsed         | 23615       |
+|    total_timesteps      | 6528000     |
+| train/                  |             |
+|    approx_kl            | 0.014534527 |
+|    clip_fraction        | 0.0913      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.754      |
+|    explained_variance   | -0.072      |
+|    learning_rate        | 0.0001      |
+|    loss                 | 92.8        |
+|    n_updates            | 5522        |
+|    policy_gradient_loss | 0.00671     |
+|    value_loss           | 207         |
+-----------------------------------------
+-----------------------------------------
+| policy_id               | 4           |
+| rollout/                |             |
+|    ep_len_mean          | 1e+03       |
+|    ep_rew_mean          | -460        |
+| time/                   |             |
+|    fps                  | 276         |
+|    iterations           | 6528000     |
+|    time_elapsed         | 23625       |
+|    total_timesteps      | 6528000     |
+| train/                  |             |
+|    approx_kl            | 0.011216551 |
+|    clip_fraction        | 0.0982      |
+|    clip_range           | 0.2         |
+|    entropy_loss         | -0.877      |
+|    explained_variance   | 0.0104      |
+|    learning_rate        | 0.0001      |
+|    loss                 | 80.7        |
+|    n_updates            | 5786        |
+|    policy_gradient_loss | 0.00369     |
+|    value_loss           | 214         |
+-----------------------------------------
