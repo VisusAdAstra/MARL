@@ -6,7 +6,7 @@ env_name: cleanup
 exp_name: cleanup_ppo_selfish_agent_sb3
 inequity_averse_reward: false
 num_agents: 5
-num_envs: 32
+num_envs: 64
 num_inequity: 5
 rollout_len: 1000
 total_timesteps: 200000000.0

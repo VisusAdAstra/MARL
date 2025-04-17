@@ -6,7 +6,7 @@ env_name: harvest
 exp_name: harvest_ppo_selfish_agent_sb3
 inequity_averse_reward: false
 num_agents: 5
-num_envs: 32
+num_envs: 64
 num_inequity: 5
 rollout_len: 1000
 total_timesteps: 100000000.0
