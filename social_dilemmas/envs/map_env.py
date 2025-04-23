@@ -480,7 +480,8 @@ class MapEnv(MultiAgentEnv):
             if filename is None:
                 plt.show(block=False)
             else:
-                plt.savefig(filename)
+                #plt.savefig(filename)
+                plt.savefig("./videos/render.png")
             return None
         return rgb_arr
 

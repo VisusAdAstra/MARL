@@ -257,10 +257,10 @@ def main(args):
         eval_results = model.evaluate(
             num_episodes=2,
             max_timesteps=1000,
-            deterministic=True,
+            deterministic=False,
             render=True,
             video_path="./videos",
-            video_name="evaluation_video",
+            video_name=exp_name,
             fps=30,
             verbose=True
         )

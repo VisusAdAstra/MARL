@@ -50,18 +50,23 @@ def make_video_from_rgb_imgs(
         frame = rgb_arrs[0]
         height, width, _ = frame.shape
         resize = width, height
+    width, height = 320, 240
+    resize = width, height
 
     fourcc = cv2.VideoWriter_fourcc(*format)
     video = cv2.VideoWriter(video_path, fourcc, float(fps), (width, height))
 
     for i, image in enumerate(rgb_arrs):
         percent_done = int((i / len(rgb_arrs)) * 100)
-        if percent_done % 20 == 0:
+        if percent_done % 50 == 0:
             print("\t...", percent_done, "% of frames rendered")
+        # import matplotlib.pyplot as plt
+        # plt.cla()
+        # plt.imshow(image, interpolation="nearest")
+        # plt.savefig("./videos/render.png")
         # Always resize, without this line the video does not render properly.
-        image = np.uint8(image)
-        image  = cv2.cvtColor(image, cv2.COLOR_HSV2BGR)
         image = cv2.resize(image, resize, interpolation=cv2.INTER_NEAREST)
+        image = cv2.normalize(image, None, 0, 255, cv2.NORM_MINMAX, cv2.CV_8U)
         video.write(image)
 
     video.release()
