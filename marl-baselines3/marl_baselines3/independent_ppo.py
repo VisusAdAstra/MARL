@@ -1,6 +1,8 @@
 import time
 from collections import deque
 from typing import Any, Dict, List, Optional, Type, Union
+import os
+import cv2
 
 import gym
 import numpy as np
@@ -14,6 +16,55 @@ from stable_baselines3.common.type_aliases import (GymEnv, MaybeCallback,
 from stable_baselines3.common.utils import (configure_logger, obs_as_tensor,
                                             safe_mean)
 from stable_baselines3.common.vec_env import DummyVecEnv
+
+
+def make_video_from_image_dir(vid_path, img_folder, video_name="trajectory", fps=5):
+    """
+    Create a video from a directory of images
+    """
+    images = [img for img in os.listdir(img_folder) if img.endswith(".png")]
+    images.sort()
+
+    rgb_imgs = []
+    for i, image in enumerate(images):
+        img = cv2.imread(os.path.join(img_folder, image))
+        rgb_imgs.append(img)
+
+    make_video_from_rgb_imgs(rgb_imgs, vid_path, video_name=video_name, fps=fps)
+
+
+def make_video_from_rgb_imgs(
+    rgb_arrs, vid_path, video_name="trajectory", fps=5, format="mp4v", resize=None
+):
+    """
+    Create a video from a list of rgb arrays
+    """
+    print("Rendering video...")
+    if vid_path[-1] != "/":
+        vid_path += "/"
+    video_path = vid_path + video_name + ".mp4"
+
+    if resize is not None:
+        width, height = resize
+    else:
+        frame = rgb_arrs[0]
+        height, width, _ = frame.shape
+        resize = width, height
+
+    fourcc = cv2.VideoWriter_fourcc(*format)
+    video = cv2.VideoWriter(video_path, fourcc, float(fps), (width, height))
+
+    for i, image in enumerate(rgb_arrs):
+        percent_done = int((i / len(rgb_arrs)) * 100)
+        if percent_done % 20 == 0:
+            print("\t...", percent_done, "% of frames rendered")
+        # Always resize, without this line the video does not render properly.
+        image = np.uint8(image)
+        image  = cv2.cvtColor(image, cv2.COLOR_HSV2BGR)
+        image = cv2.resize(image, resize, interpolation=cv2.INTER_NEAREST)
+        video.write(image)
+
+    video.release()
 
 
 class DummyGymEnv(gym.Env):
@@ -357,3 +408,123 @@ class IndependentPPO(OnPolicyAlgorithm):
     def save(self, path: str) -> None:
         for polid in range(self.num_agents):
             self.policies[polid].save(path=path + f"/policy_{polid + 1}/model")
+
+    def evaluate(
+        self,
+        num_episodes: int = 5,
+        max_timesteps: int = 1000,
+        deterministic: bool = True,
+        render: bool = False,
+        video_path: str = None,
+        video_name: str = "evaluation",
+        fps: int = 10,
+        render_mode: str = "rgb_array",
+        verbose: bool = True,
+    ):
+        """
+        Evaluate a trained model.
+        
+        Args:
+            num_episodes: Number of episodes to evaluate over
+            max_timesteps: Maximum timesteps per episode
+            deterministic: Whether to use deterministic actions
+            render: Whether to render the environment
+            video_path: Path to save video (if None, no video is saved)
+            video_name: Name of the video file
+            fps: Frames per second for video
+            render_mode: Render mode to use (rgb_array for video recording)
+            verbose: Whether to print evaluation progress
+            
+        Returns:
+            Dictionary with evaluation metrics
+        """
+        if render and video_path is not None:
+            frames = []
+            # Ensure video_path directory exists
+            os.makedirs(video_path, exist_ok=True)
+            
+        episode_rewards = [[] for _ in range(self.num_agents)]
+        episode_lengths = [[] for _ in range(self.num_agents)]
+        
+        for episode in range(num_episodes):
+            if verbose:
+                print(f"Evaluating episode {episode+1}/{num_episodes}")
+                
+            # Reset env at the start of each episode
+            obs = self.env.reset()
+            done = [False] * (self.num_envs * self.num_agents)
+            states = None
+            episode_reward = [0.0] * (self.num_envs * self.num_agents)
+            episode_length = 0
+            
+            for step in range(max_timesteps):
+                all_actions = [None] * self.num_agents
+                
+                # Get actions from all policies
+                for polid, policy in enumerate(self.policies):
+                    # Extract observations for this policy
+                    policy_obs = np.array([
+                        obs[envid * self.num_agents + polid]
+                        for envid in range(self.num_envs)
+                    ])
+                    
+                    # Get action from policy
+                    action, states = policy.predict(
+                        policy_obs,
+                        state=states,
+                        deterministic=deterministic
+                    )
+                    
+                    all_actions[polid] = action
+                
+                # Reshape actions to match environment expectations
+                all_actions = np.vstack(all_actions).transpose().reshape(-1)
+                
+                # Step environment
+                obs, rewards, dones, infos = self.env.step(all_actions)
+                
+                # Update episode rewards and check if done
+                for i in range(len(episode_reward)):
+                    episode_reward[i] += rewards[i]
+                    
+                # Render if requested
+                if render and video_path is not None:
+                    frame = self.env.render(mode=render_mode)
+                    frames.append(frame)
+                    
+                episode_length += 1
+                
+                # Check if all environments are done
+                if all(dones):
+                    break
+                    
+            # Record episode metrics
+            for polid in range(self.num_agents):
+                agent_rewards = [episode_reward[envid * self.num_agents + polid] for envid in range(self.num_envs)]
+                episode_rewards[polid].extend(agent_rewards)
+                episode_lengths[polid].extend([episode_length] * self.num_envs)
+                
+        # Save video if requested
+        if render and video_path is not None and frames:
+            make_video_from_rgb_imgs(frames, video_path, video_name=video_name, fps=fps)
+            if verbose:
+                print(f"Video saved to {video_path}/{video_name}.mp4")
+        
+        # Calculate metrics
+        mean_reward = [np.mean(rewards) for rewards in episode_rewards]
+        std_reward = [np.std(rewards) for rewards in episode_rewards]
+        mean_length = [np.mean(lengths) for lengths in episode_lengths]
+        
+        # Print metrics
+        if verbose:
+            for polid in range(self.num_agents):
+                print(f"Policy {polid+1}: Mean reward: {mean_reward[polid]:.2f} +/- {std_reward[polid]:.2f}")
+                print(f"Policy {polid+1}: Mean episode length: {mean_length[polid]:.2f}")
+        
+        return {
+            "episode_rewards": episode_rewards,
+            "episode_lengths": episode_lengths,
+            "mean_reward": mean_reward,
+            "std_reward": std_reward,
+            "mean_length": mean_length
+        }

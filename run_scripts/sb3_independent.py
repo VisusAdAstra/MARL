@@ -12,6 +12,7 @@ from torch import nn
 import os
 import yaml
 import shutil
+import numpy as np
 
 from social_dilemmas.envs.pettingzoo_env import parallel_env
 
@@ -246,13 +247,30 @@ def main(args):
             logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
         )
     else:
-        print(f"load model {logdir}")
         logdir = tensorboard_log + "/" + exp_name + "_1"
+        print(f"load model {logdir}")
         model = IndependentPPO.load(  # noqa: F841
             logdir, "CnnPolicy", num_agents, env, rollout_len, policy_kwargs, tensorboard_log, verbose
         )
 
+        # Evaluate the model and generate a video
+        eval_results = model.evaluate(
+            num_episodes=2,
+            max_timesteps=1000,
+            deterministic=True,
+            render=True,
+            video_path="./videos",
+            video_name="evaluation_video",
+            fps=30,
+            verbose=True
+        )
+        
+        # Print overall results
+        print("\nEvaluation complete!")
+        print(f"Overall mean reward: {np.mean(eval_results['mean_reward']):.2f}")
+
 
 if __name__ == "__main__":
     args = parse_args()
+    print("args.train", args.train)
     main(args)
